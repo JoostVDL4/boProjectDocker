@@ -10,7 +10,7 @@ services:
       dockerfile: ./docker/php/dockerfile
       context: .
     volumes:
-      - './public/:/var/www/html'
+      - './:/var/www/html'
     depends_on:
       - mariadb
 
@@ -23,7 +23,7 @@ services:
     links:
       - 'php'
     volumes:
-      - './public/:/var/www/html'
+      - './:/var/www/html'
       - './docker/nginx:/etc/nginx/conf.d'
     depends_on:
       - php
@@ -32,9 +32,11 @@ services:
   mariadb:
     container_name: boProject
     image: mariadb:latest
+    ports:
+      - 3307:3306
     environment:
-      MYSQL_DATABASE: voorbeeld_db
-      MYSQL_USER: db_user
+      MYSQL_DATABASE: boProject_db
+      MYSQL_USER: bo_user
       MYSQL_PASSWORD: mijn_p@ss#
       MYSQL_ROOT_PASSWORD: 4dy5qwtrsag#!sad
     volumes:
@@ -42,4 +44,4 @@ services:
 
 # Volumes
 volumes:
-  mysqldata:
+ mysqldata:
